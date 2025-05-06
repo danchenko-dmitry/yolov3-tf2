@@ -1,4 +1,5 @@
 import time
+import os
 from absl import app, flags, logging
 from absl.flags import FLAGS
 import cv2
@@ -30,6 +31,10 @@ def main(_argv):
         yolo = YoloV3Tiny(classes=FLAGS.num_classes)
     else:
         yolo = YoloV3(classes=FLAGS.num_classes)
+
+    print("FLAGS.weights:", FLAGS.weights)
+    print("Model:", yolo)
+    print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
     yolo.load_weights(FLAGS.weights).expect_partial()
     logging.info('weights loaded')
