@@ -36,7 +36,7 @@ def main(_argv):
     print("Model:", yolo)
     print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
-    yolo.load_weights(FLAGS.weights).expect_partial()
+    yolo.load_weights(FLAGS.weights) #.expect_partial()
     logging.info('weights loaded')
 
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
