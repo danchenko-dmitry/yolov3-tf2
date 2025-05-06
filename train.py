@@ -22,7 +22,7 @@ import yolov3_tf2.dataset as dataset
 flags.DEFINE_string('dataset', '', 'path to dataset')
 flags.DEFINE_string('val_dataset', '', 'path to validation dataset')
 flags.DEFINE_boolean('tiny', False, 'yolov3 or yolov3-tiny')
-flags.DEFINE_string('weights', './checkpoints/yolov3.tf',
+flags.DEFINE_string('weights', './checkpoints/MyDrive/yolov3.tf',
                     'path to weights file')
 flags.DEFINE_string('classes', './data/coco.names', 'path to classes file')
 flags.DEFINE_enum('mode', 'fit', ['fit', 'eager_fit', 'eager_tf'],
@@ -190,13 +190,13 @@ def main(_argv):
             avg_loss.reset_states()
             avg_val_loss.reset_states()
             model.save_weights(
-                'checkpoints/yolov3_train_{}.tf'.format(epoch))
+                'checkpoints/MyDrive/yolov3_train_{}.tf'.format(epoch))
     else:
 
         callbacks = [
             ReduceLROnPlateau(verbose=1),
             EarlyStopping(patience=3, verbose=1),
-            ModelCheckpoint('checkpoints/yolov3_train_{epoch}.weights.h5',
+            ModelCheckpoint('checkpoints/MyDrive/yolov3_train_{epoch}.weights.h5',
                             verbose=1, save_weights_only=True),
             TensorBoard(log_dir='logs')
         ]
