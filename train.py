@@ -93,7 +93,7 @@ def setup_model():
             # freeze everything
             freeze_all(model)
 
-    optimizer = tf.keras.optimizers.Adam(lr=FLAGS.learning_rate)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=FLAGS.learning_rate)
     loss = [YoloLoss(anchors[mask], classes=FLAGS.num_classes)
             for mask in anchor_masks]
 
