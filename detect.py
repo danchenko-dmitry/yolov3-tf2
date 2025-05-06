@@ -59,7 +59,7 @@ def main(_argv):
     t2 = time.time()
     logging.info('time: {}'.format(t2 - t1))
 
-    logging.info('detections:')
+    logging.info('detections:',nums,classes,scores,boxes)
     for i in range(nums[0]):
         logging.info('\t{}, {}, {}'.format(class_names[int(classes[0][i])],
                                            np.array(scores[0][i]),
