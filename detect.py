@@ -32,8 +32,6 @@ def main(_argv):
     else:
         yolo = YoloV3(classes=FLAGS.num_classes)
 
-    print("FLAGS.weights:", FLAGS.weights)
-    print("Model:", yolo)
     print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
     status = yolo.load_weights(FLAGS.weights) #.expect_partial()
