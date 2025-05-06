@@ -62,6 +62,10 @@ def load_darknet_weights(model, weights_file, tiny=False):
             conv_weights = np.fromfile(
                 wf, dtype=np.float32, count=np.product(conv_shape))
             # tf shape (height, width, in_dim, out_dim)
+
+            print("expected:", conv_shape, "→", np.product(conv_shape))
+            print("actual:", conv_weights.shape)
+
             conv_weights = conv_weights.reshape(
                 conv_shape).transpose([2, 3, 1, 0])
 
