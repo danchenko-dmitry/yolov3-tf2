@@ -70,10 +70,10 @@ def main(_argv):
     t2 = time.time()
     logging.info('time: {}'.format(t2 - t1))
 
-    logging.info('detections: nums:',nums)
-    logging.info('detections: classes:',classes)
-    logging.info('detections: nums:',scores)
-    logging.info('detections: nums:',boxes)
+    logging.info('detections: nums: %s',nums)
+    logging.info('detections: classes: %s',classes)
+    logging.info('detections: nums: %s',scores)
+    logging.info('detections: nums: %s',boxes)
 
     for i in range(nums[0]):
         logging.info('\tclass_names - {},scores - {},boxes - {}'.format(class_names[int(classes[0][i])],
