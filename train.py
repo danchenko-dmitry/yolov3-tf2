@@ -66,10 +66,10 @@ def setup_model():
         # reset top layers
         if FLAGS.tiny:
             model_pretrained = YoloV3Tiny(
-                FLAGS.size, training=True,classes = 20 )# classes=FLAGS.weights_num_classes or FLAGS.num_classes)
+                FLAGS.size, training=True,classes = 80 )# classes=FLAGS.weights_num_classes or FLAGS.num_classes)
         else:
             model_pretrained = YoloV3(
-                FLAGS.size, training=True,classes = 20 )#( classes=FLAGS.weights_num_classes or FLAGS.num_classes)
+                FLAGS.size, training=True,classes = 80 )#( classes=FLAGS.weights_num_classes or FLAGS.num_classes)
         model_pretrained.load_weights(FLAGS.weights)
 
         if FLAGS.transfer == 'darknet':
