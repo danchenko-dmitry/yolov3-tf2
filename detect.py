@@ -70,9 +70,13 @@ def main(_argv):
     t2 = time.time()
     logging.info('time: {}'.format(t2 - t1))
 
-    logging.info('detections:',nums,classes,scores,boxes)
+    logging.info('detections: nums:',nums)
+    logging.info('detections: classes:',classes)
+    logging.info('detections: nums:',scores)
+    logging.info('detections: nums:',boxes)
+
     for i in range(nums[0]):
-        logging.info('\t{}, {}, {}'.format(class_names[int(classes[0][i])],
+        logging.info('\tclass_names - {},scores - {},boxes - {}'.format(class_names[int(classes[0][i])],
                                            np.array(scores[0][i]),
                                            np.array(boxes[0][i])))
 
