@@ -17,9 +17,9 @@ def main(_argv):
         tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
     if FLAGS.tiny:
-        yolo = YoloV3Tiny(classes=FLAGS.num_classes)
+        yolo = YoloV3Tiny(classes=FLAGS.num_classes, training=True)
     else:
-        yolo = YoloV3(classes=FLAGS.num_classes)
+        yolo = YoloV3(classes=FLAGS.num_classes, training=True)
     yolo.summary()
     logging.info('model created')
 
