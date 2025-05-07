@@ -25,12 +25,6 @@ flags.DEFINE_integer('num_classes', 80, 'number of classes in the model')
 
 def main(_argv):
 
-    with h5py.File(FLAGS.weights, 'r') as f:
-        print("Слои в файле весов:")
-        def print_structure(name, obj):
-            print(name)
-        f.visititems(print_structure)
-
     physical_devices = tf.config.experimental.list_physical_devices('GPU')
     for physical_device in physical_devices:
         tf.config.experimental.set_memory_growth(physical_device, True)
@@ -39,8 +33,6 @@ def main(_argv):
         yolo = YoloV3Tiny(classes=FLAGS.num_classes)
     else:
         yolo = YoloV3(classes=FLAGS.num_classes)
-
-    print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
     # Сохрани старые значения
     before_weights = [w.numpy().copy() for w in yolo.weights]
@@ -51,7 +43,6 @@ def main(_argv):
         print(np.allclose(w_old, w_new.numpy()))  # False если веса изменились
 
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
-    logging.info('classes loaded',class_names)
 
     if FLAGS.tfrecord:
         dataset = load_tfrecord_dataset(
@@ -74,11 +65,6 @@ def main(_argv):
     logging.info('detections: classes: %s',classes)
     logging.info('detections: nums: %s',scores)
     logging.info('detections: nums: %s',boxes)
-
-    for i in range(nums[0]):
-        logging.info('\tclass_names - {},scores - {},boxes - {}'.format(class_names[int(classes[0][i])],
-                                           np.array(scores[0][i]),
-                                           np.array(boxes[0][i])))
 
     img = cv2.cvtColor(img_raw.numpy(), cv2.COLOR_RGB2BGR)
     img = draw_outputs(img, (boxes, scores, classes, nums), class_names)
