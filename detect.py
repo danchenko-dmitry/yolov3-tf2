@@ -1,4 +1,5 @@
 import time
+import h5py
 import os
 from absl import app, flags, logging
 from absl.flags import FLAGS
@@ -23,6 +24,13 @@ flags.DEFINE_integer('num_classes', 80, 'number of classes in the model')
 
 
 def main(_argv):
+
+    with h5py.File(FLAGS.weights, 'r') as f:
+        print("Слои в файле весов:")
+        def print_structure(name, obj):
+            print(name)
+        f.visititems(print_structure)
+
     physical_devices = tf.config.experimental.list_physical_devices('GPU')
     for physical_device in physical_devices:
         tf.config.experimental.set_memory_growth(physical_device, True)
@@ -34,8 +42,19 @@ def main(_argv):
 
     print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
-    status = yolo.load_weights(FLAGS.weights).expect_partial()
+    print("До загрузки:")
+    for w in yolo.weights[:5]:
+        print(w.name, np.sum(w.numpy()))
+
+    status = yolo.load_weights(FLAGS.weights)#.expect_partial()
     logging.info("weights loaded",status)
+
+    print("После загрузки:")
+    for w in yolo.weights[:5]:
+        print(w.name, np.sum(w.numpy()))
+
+    for w_model, w_loaded in zip(yolo.weights, tf.keras.models.load_model(FLAGS.weights).weights):
+        print(w_model.shape == w_loaded.shape, w_model.name)
 
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
     logging.info('classes loaded',class_names)
