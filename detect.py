@@ -42,19 +42,14 @@ def main(_argv):
 
     print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
-    print("До загрузки:")
-    for w in yolo.weights[:5]:
-        print(w.name, np.sum(w.numpy()))
+    # Сохрани старые значения
+    before_weights = [w.numpy().copy() for w in yolo.weights]
 
     status = yolo.load_weights(FLAGS.weights)#.expect_partial()
     logging.info("weights loaded",status)
 
-    print("После загрузки:")
-    for w in yolo.weights[:5]:
-        print(w.name, np.sum(w.numpy()))
-
-    for w_model, w_loaded in zip(yolo.weights, tf.keras.models.load_model(FLAGS.weights).weights):
-        print(w_model.shape == w_loaded.shape, w_model.name)
+    for w_old, w_new in zip(before_weights, yolo.weights):
+        print(np.allclose(w_old, w_new.numpy()))  # False если веса изменились
 
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
     logging.info('classes loaded',class_names)
