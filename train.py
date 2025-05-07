@@ -73,7 +73,7 @@ def setup_model():
         
         model_pretrained.summary()
 
-        model_pretrained.load_weights(FLAGS.weights, by_name=True, skip_mismatch=True)
+        model_pretrained.load_weights(FLAGS.weights, skip_mismatch=True)
 
         if FLAGS.transfer == 'darknet':
             model.get_layer('yolo_darknet').set_weights(
