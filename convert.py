@@ -31,7 +31,7 @@ def main(_argv):
     logging.info('sanity check passed')
 
     #yolo.save_weights(FLAGS.output)
-    yolo.save_weights(FLAGS.output, save_format='h5')
+    yolo.save_weights(FLAGS.output)
     logging.info('weights saved')
 
 
