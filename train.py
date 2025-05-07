@@ -70,6 +70,9 @@ def setup_model():
         else:
             model_pretrained = YoloV3(
                 FLAGS.size, training=True,classes = 80 )#( classes=FLAGS.weights_num_classes or FLAGS.num_classes)
+        dummy_input = tf.ones((1, FLAGS.size, FLAGS.size, 3))
+        model_pretrained(dummy_input)
+        
         model_pretrained.load_weights(FLAGS.weights)
 
         if FLAGS.transfer == 'darknet':
