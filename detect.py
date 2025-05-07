@@ -34,11 +34,11 @@ def main(_argv):
 
     print("exists:",os.path.exists(FLAGS.weights))  # должно вернуть True
 
-    status = yolo.load_weights(FLAGS.weights) #.expect_partial()
-    logging.info(f"weights loaded {status}")
+    status = yolo.load_weights(FLAGS.weights).expect_partial()
+    logging.info("weights loaded",status)
 
     class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
-    logging.info('classes loaded')
+    logging.info('classes loaded',class_names)
 
     if FLAGS.tfrecord:
         dataset = load_tfrecord_dataset(
