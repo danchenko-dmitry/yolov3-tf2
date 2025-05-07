@@ -46,7 +46,6 @@ def main(_argv):
     before_weights = [w.numpy().copy() for w in yolo.weights]
 
     status = yolo.load_weights(FLAGS.weights)#.expect_partial()
-    logging.info("weights loaded",status)
 
     for w_old, w_new in zip(before_weights, yolo.weights):
         print(np.allclose(w_old, w_new.numpy()))  # False если веса изменились
